@@ -26,7 +26,7 @@
 
         oParameters = {
               theme : 'default'
-            , language : []
+            , language : ''
         };
         aScripts = document.getElementsByTagName('script');
         iLastScript = aScripts.length - 1;
@@ -64,11 +64,18 @@
     }
 
     function addJsHighlight(p_oParameters){
-        var sTheme, oNode, t_iIndex, aScripts = [];
+        var sTheme, aLanguages, oNode, t_iIndex, aScripts = [];
 
         sTheme = p_oParameters.theme || 'default';
-        aLanguages = p_oParameters.language.split(',') || [];
-        
+
+        if (p_oParameters.language && p_oParameters.language.indexOf(',')) {
+            aLanguages = p_oParameters.language.split(',');        
+        } else if (p_oParameters.language !== '') {
+            aLanguages = [p_oParameters.language]
+        } else {
+            aLanguages = [];
+        }
+
         /* add theme stylesheet */
         oNode = document.createElement('link');
         oNode.setAttribute('rel', 'stylesheet');
@@ -77,7 +84,7 @@
 
         /* add language for each language parameter */
         for (t_sIndex in aLanguages) {
-           aScripts.push('/languages/' + aLanguages[t_sIndex] + '.min.js');
+           aScripts.push('languages/' + aLanguages[t_sIndex] + '.min.js');
         }
 
 
