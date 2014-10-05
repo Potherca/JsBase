@@ -15,7 +15,7 @@
         };
 
         oRequest.onerror = function(p_oError) {
-            p_fCallback(p_oError, data);
+            p_fCallback(p_oError, sData);
         };
 
         oRequest.send();
