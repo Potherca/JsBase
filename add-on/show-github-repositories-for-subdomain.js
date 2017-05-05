@@ -5,7 +5,7 @@ function loadScript(p_sScript, p_fCallback) {
     fCallback = p_fCallback || function(){};
 
     oNode = document.createElement('script');
-    oNode.src = sRoot + p_sScript;
+    oNode.src = p_sScript;
     oNode.async = true;
 
     oNode.onreadystatechange = oNode.onload = function() {
@@ -28,7 +28,7 @@ function run() {
         sSubDomain = 'bash';
     }
 
-    sUser = 'potherca-' + sDomain;
+    sUser = 'potherca-' + sSubDomain;
 
     sShowForks = false;
 
@@ -36,13 +36,12 @@ function run() {
       sShowForks = true;
     }
 
-    var $List = $('#list'),
+    $List = $('#list');
         /*/
             @TODO: Once there are more than a hundred repos for a user this needs to be
                   resolved by parsing the "Link" HTTP header send with the response
         /*/
-        sUrl = 'https://api.github.com/users/' + sUser + '/repos?per_page=100'
-    ;
+    sUrl = 'https://api.github.com/users/' + sUser + '/repos?per_page=100';
 
     $.ajax({
         dataType: "json",
@@ -52,9 +51,9 @@ function run() {
                 var sHomepageLink='';
                 if(p_oRepo.fork === false || sShowForks === true){
                     if(p_oRepo.homepage){
-                        sRepoName = '<a href="' + p_oRepo.homepage + '" target="_blank">' + p_oRepo.name  + '</a> '
+                        sRepoName = '<a href="' + p_oRepo.homepage + '" target="_blank">' + p_oRepo.name  + '</a> ';
                     } else {
-                        sRepoName = '<a title="Click the Github icon to visit this repo" target="_blank">' + p_oRepo.name  + '</a> '
+                        sRepoName = '<a title="Click the Github icon to visit this repo" target="_blank">' + p_oRepo.name  + '</a> ';
                     }
                     $List.append(
                           '<li>'
@@ -70,7 +69,7 @@ function run() {
             $List.append('<li class="error">' + p_sError + ': ' + p_sStatus + '</li>');
         }
     });
-};
+}
 
 loadScript('https://code.jquery.com/jquery-1.12.4.min.js', run);
 
